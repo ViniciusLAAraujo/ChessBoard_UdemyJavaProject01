@@ -32,11 +32,15 @@ public class Program {
 
 				ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
 				System.out.println();
-				System.out.print("captured piece ");
-				if (capturedPiece.getColor() == Color.BLACK)
-					System.out.println(UI.ANSI_PURPLE + capturedPiece.toString() + UI.ANSI_RESET);
-				else
-					System.out.println(capturedPiece.toString());
+				if (capturedPiece == null)
+					System.out.println("No pieces were captured");
+				else {
+					System.out.print("captured piece ");
+					if (capturedPiece.getColor() == Color.BLACK)
+						System.out.println(UI.ANSI_PURPLE + capturedPiece.toString() + UI.ANSI_RESET);
+					else
+						System.out.println(capturedPiece.toString());
+				}
 				sc.nextLine();
 			} catch (ChessException e) {
 				System.out.println(e.getMessage());

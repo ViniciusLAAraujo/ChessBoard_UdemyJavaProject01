@@ -55,7 +55,7 @@ public class UI {
 			System.out.print(ANSI_WHITE_BACKGROUND + ANSI_BLACK + " " + (pieces.length - i) + " "
 					+ ANSI_BLACK_BACKGROUND + " " + ANSI_RESET);
 			for (int j = 0; j < pieces[0].length; j++)
-				printPiece(pieces[i][j]);
+				printPiece(pieces[i][j],0);
 			System.out.println();
 		}
 		System.out.print(ANSI_WHITE_BACKGROUND + "  ");
@@ -63,10 +63,31 @@ public class UI {
 			System.out.print(ANSI_BLACK + "  " + (char) (97 + i));
 		System.out.print(" " + ANSI_BLACK_BACKGROUND + ANSI_RESET);
 	}
+	
+	public static void printBoard(ChessPiece[][] pieces, int[][] possibleMoves) {
+		for (int i = 0; i < pieces.length; i++) {
+			System.out.print(ANSI_WHITE_BACKGROUND + ANSI_BLACK + " " + (pieces.length - i) + " "
+					+ ANSI_BLACK_BACKGROUND + " " + ANSI_RESET);
+			for (int j = 0; j < pieces[0].length; j++)
+				printPiece(pieces[i][j],possibleMoves[i][j]);
+			System.out.println();
+		}
+		System.out.print(ANSI_WHITE_BACKGROUND + "  ");
+		for (int i = 0; i < pieces[0].length; i++)
+			System.out.print(ANSI_BLACK + "  " + (char) (97 + i));
+		System.out.print(" " + ANSI_BLACK_BACKGROUND + ANSI_RESET);
+		
+	}
 
-	private static void printPiece(ChessPiece piece) {
+	private static void printPiece(ChessPiece piece, int background) {
+		if (background == 1) 
+			System.out.print(ANSI_YELLOW_BACKGROUND);
+		
+		if (background == 2) 
+			System.out.print(ANSI_RED_BACKGROUND);
+		
 		if (piece == null)
-			System.out.print("-");
+			System.out.print("-"+ ANSI_RESET);
 		else {
 			if (piece.getColor() == Color.WHITE)
 				System.out.print(ANSI_WHITE + piece + ANSI_RESET);
@@ -75,4 +96,5 @@ public class UI {
 		}
 		System.out.print("  ");
 	}
+
 }

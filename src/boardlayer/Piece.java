@@ -13,18 +13,18 @@ public abstract class Piece {
 		return board;
 	}
 
-	public abstract boolean[][] possibleMoves();
+	public abstract int[][] possibleMoves();
 
 	// Hook methods . Concrete that uses an abstract
-	public boolean possibleMove(Position position) {
+	public int possibleMove(Position position) {
 		return possibleMoves()[position.getRow()][position.getColumn()];
 	}
 
 	public boolean isThereAnyPossibleMove() {
-		boolean[][] matx = possibleMoves();
+		int[][] matx = possibleMoves();
 		for (int i = 0; i < matx.length; i++) {
 			for (int j = 0; j < matx[0].length; j++) {
-				if (matx[i][j]) 
+				if (matx[i][j]>0) 
 					return true;
 			}
 		}

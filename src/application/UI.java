@@ -31,14 +31,21 @@ public class UI {
 	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
-	public static ChessPosition readChessPosition(Scanner sc,int max_rows, int max_columns) {
+	// https://stackoverflow.com/questions/2979383/java-clear-the-console
+	public static void clearScreen() {
+		System.out.print("\033[H\033[2J");
+		System.out.flush();
+	}
+
+	public static ChessPosition readChessPosition(Scanner sc, int max_rows, int max_columns) {
 		try {
 			String holder = sc.nextLine();
 			char column = holder.charAt(0);
 			int row = Integer.parseInt(holder.substring(1));
-			return new ChessPosition(column,row,max_rows,max_columns);
+			return new ChessPosition(column, row, max_rows, max_columns);
 		} catch (RuntimeException e) {
-			throw new InputMismatchException("Error! Could not initialize Chess Position. Valid values are a1 to "+(char)(97 + max_rows - 1)+max_rows);
+			throw new InputMismatchException("Error! Could not initialize Chess Position. Valid values are a1 to "
+					+ (char) (97 + max_rows - 1) + max_rows);
 		}
 
 	}

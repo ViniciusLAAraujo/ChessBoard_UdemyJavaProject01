@@ -1,12 +1,14 @@
 package application;
 
-import boardlayer.Position;
+import boardlayer.Board;
+import boardlayer.Piece;
+
 
 public class Program {
 
 	public static void main(String[] args) {
-		Position pos = new Position(4, 8);
-		System.out.println(pos);
+		Board board = new Board(8, 8);
+		Piece piece = new Piece(board);
 	}
 
 }

@@ -1,7 +1,6 @@
 package chess;
 
 import boardlayer.Board;
-import boardlayer.Position;
 import chess.pieces.King;
 import chess.pieces.Rook;
 
@@ -13,7 +12,7 @@ public class ChessMatch {
 		board = new Board(DEFAULT_ROW_COLLUMN, DEFAULT_ROW_COLLUMN);
 		initialSetup();
 	}
-	
+
 	public ChessMatch(int row, int collumn) {
 		board = new Board(row, collumn);
 	}
@@ -27,13 +26,17 @@ public class ChessMatch {
 		}
 		return matx;
 	}
-	
+
+	private void placeNewPiece(char column,int row, ChessPiece piece) {
+		board.placePiece(piece, new ChessPosition(column, row, board.getRows(), board.getColumns()).toPosition());
+	}
+
 	private void initialSetup() {
-		this.board.placePiece(new Rook(this.board, Color.BLACK), new Position(0,0));
-		this.board.placePiece(new King(this.board, Color.BLACK), new Position(0,4));
-		this.board.placePiece(new Rook(this.board, Color.BLACK), new Position(0,7));
-		this.board.placePiece(new Rook(this.board, Color.WHITE), new Position(7,0));
-		this.board.placePiece(new King(this.board, Color.WHITE), new Position(7,4));
-		this.board.placePiece(new Rook(this.board, Color.WHITE), new Position(7,7));
+		placeNewPiece('a',8,new Rook(this.board, Color.BLACK));
+		placeNewPiece('e',8,new King(this.board, Color.BLACK));
+		placeNewPiece('h',8,new Rook(this.board, Color.BLACK));
+		placeNewPiece('a',1,new Rook(this.board, Color.WHITE));
+		placeNewPiece('e',1,new King(this.board, Color.WHITE));
+		placeNewPiece('h',1,new Rook(this.board, Color.WHITE));
 	}
 }

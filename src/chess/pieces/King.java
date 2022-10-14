@@ -12,12 +12,10 @@ public class King extends ChessPiece {
 
 	@Override
 	public String toString() {
-		/* Future idea to print Unicode cooler characters
-		 * 
-		 * StringBuilder sb = new StringBuilder();
-		 * sb.append((char) 488);
-		 * return sb.toString();
-		 * 
+		/*
+		StringBuilder sb = new StringBuilder();
+		sb.append((char) 488);
+		return sb.toString();
 		*/
 		return "K";
 	}

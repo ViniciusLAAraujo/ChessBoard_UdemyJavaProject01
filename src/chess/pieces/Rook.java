@@ -12,13 +12,11 @@ public class Rook extends ChessPiece {
 
 	@Override
 	public String toString() {
-		/*Future idea to print Unicode cooler characters
-		 * 
-		 * StringBuilder sb = new StringBuilder();
-		 * sb.append((char) 422);
-		 * return sb.toString();
-		 * 
-		 */
+		/*
+		StringBuilder sb = new StringBuilder();
+		sb.append((char) 422);
+		return sb.toString();
+		*/
 		return "R";
 	}
 }

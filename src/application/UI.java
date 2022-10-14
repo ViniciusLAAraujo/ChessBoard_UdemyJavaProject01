@@ -1,5 +1,6 @@
 package application;
 
+//import java.io.PrintWriter; //Future plans
 import chess.ChessPiece;
 
 public class UI {
@@ -17,10 +18,13 @@ public class UI {
 	}
 
 	private static void printPiece(ChessPiece piece) {
+		// PrintWriter printWriter = new PrintWriter(System.out,true);//Future plan to
+		// write Unicode
 		if (piece == null)
 			System.out.print("-");
 		else
 			System.out.print(piece);
+		// printWriter.print(piece);//Future plan to write Unicode
 		System.out.print("  ");
 	}
 }

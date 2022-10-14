@@ -1,6 +1,9 @@
 package chess;
 
 import boardlayer.Board;
+import boardlayer.Position;
+import chess.pieces.King;
+import chess.pieces.Rook;
 
 public class ChessMatch {
 	final int DEFAULT_ROW_COLLUMN = 8;
@@ -8,6 +11,7 @@ public class ChessMatch {
 
 	public ChessMatch() {
 		board = new Board(DEFAULT_ROW_COLLUMN, DEFAULT_ROW_COLLUMN);
+		initialSetup();
 	}
 	
 	public ChessMatch(int row, int collumn) {
@@ -22,5 +26,14 @@ public class ChessMatch {
 			}
 		}
 		return matx;
+	}
+	
+	private void initialSetup() {
+		this.board.placePiece(new Rook(this.board, Color.BLACK), new Position(0,0));
+		this.board.placePiece(new King(this.board, Color.BLACK), new Position(0,4));
+		this.board.placePiece(new Rook(this.board, Color.BLACK), new Position(0,7));
+		this.board.placePiece(new Rook(this.board, Color.WHITE), new Position(7,0));
+		this.board.placePiece(new King(this.board, Color.WHITE), new Position(7,4));
+		this.board.placePiece(new Rook(this.board, Color.WHITE), new Position(7,7));
 	}
 }

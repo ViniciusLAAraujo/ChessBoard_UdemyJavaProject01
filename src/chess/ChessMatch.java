@@ -1,11 +1,13 @@
 package chess;
 
 import boardlayer.Board;
+import boardlayer.Piece;
+import boardlayer.Position;
 import chess.pieces.King;
 import chess.pieces.Rook;
 
 public class ChessMatch {
-	final int DEFAULT_ROW_COLLUMN = 8;
+	public final int DEFAULT_ROW_COLLUMN = 8;
 	private Board board;
 
 	public ChessMatch() {
@@ -27,16 +29,37 @@ public class ChessMatch {
 		return matx;
 	}
 
-	private void placeNewPiece(char column,int row, ChessPiece piece) {
+	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
+		Position source = sourcePosition.toPosition();
+		Position target = targetPosition.toPosition();
+		validateSourcePosition(source);
+		Piece capturedPiece = makeMove(source, target);
+		return (ChessPiece) capturedPiece;
+	}
+
+	private void validateSourcePosition(Position position) {
+		if (!board.thereIsAPiece(position))
+			throw new ChessException("There is no piece in source position!");
+
+	}
+
+	private Piece makeMove(Position source, Position target) {
+		Piece selectedPiece = board.removePiece(source);
+		Piece capturedPiece = board.removePiece(target);
+		board.placePiece(selectedPiece, target);
+		return capturedPiece;
+	}
+
+	private void placeNewPiece(char column, int row, ChessPiece piece) {
 		board.placePiece(piece, new ChessPosition(column, row, board.getRows(), board.getColumns()).toPosition());
 	}
 
 	private void initialSetup() {
-		placeNewPiece('a',8,new Rook(this.board, Color.BLACK));
-		placeNewPiece('e',8,new King(this.board, Color.BLACK));
-		placeNewPiece('h',8,new Rook(this.board, Color.BLACK));
-		placeNewPiece('a',1,new Rook(this.board, Color.WHITE));
-		placeNewPiece('e',1,new King(this.board, Color.WHITE));
-		placeNewPiece('h',1,new Rook(this.board, Color.WHITE));
+		placeNewPiece('a', 8, new Rook(this.board, Color.BLACK));
+		placeNewPiece('e', 8, new King(this.board, Color.BLACK));
+		placeNewPiece('h', 8, new Rook(this.board, Color.BLACK));
+		placeNewPiece('a', 1, new Rook(this.board, Color.WHITE));
+		placeNewPiece('e', 1, new King(this.board, Color.WHITE));
+		placeNewPiece('h', 1, new Rook(this.board, Color.WHITE));
 	}
 }

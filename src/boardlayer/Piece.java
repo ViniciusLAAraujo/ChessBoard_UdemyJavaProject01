@@ -1,6 +1,6 @@
 package boardlayer;
 
-public class Piece {
+public abstract class Piece {
 	protected Position position;
 	private Board board;
 
@@ -13,4 +13,21 @@ public class Piece {
 		return board;
 	}
 
+	public abstract boolean[][] possibleMoves();
+
+	// Hook methods . Concrete that uses an abstract
+	public boolean possibleMove(Position position) {
+		return possibleMoves()[position.getRow()][position.getColumn()];
+	}
+
+	public boolean isThereAnyPossibleMove() {
+		boolean[][] matx = possibleMoves();
+		for (int i = 0; i < matx.length; i++) {
+			for (int j = 0; j < matx[0].length; j++) {
+				if (matx[i][j]) 
+					return true;
+			}
+		}
+		return false;
+	}
 }

@@ -37,6 +37,7 @@ public class Program {
 					System.out.println(UI.ANSI_PURPLE + capturedPiece.toString() + UI.ANSI_RESET);
 				else
 					System.out.println(capturedPiece.toString());
+				sc.nextLine();
 			} catch (ChessException e) {
 				System.out.println(e.getMessage());
 				sc.nextLine();

@@ -112,6 +112,9 @@ public class UI {
 
 		if (background == 2)
 			System.out.print(ANSI_RED_BACKGROUND);
+		//future idea , color possible future check positions
+		//if (background == 3)
+			//System.out.print(ANSI_GREEN_BACKGROUND);
 
 		if (piece == null)
 			System.out.print("-" + ANSI_RESET);

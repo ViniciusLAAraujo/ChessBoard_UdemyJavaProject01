@@ -1,5 +1,8 @@
 package chess;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import boardlayer.Board;
 import boardlayer.Piece;
 import boardlayer.Position;
@@ -9,17 +12,28 @@ import chess.pieces.Rook;
 public class ChessMatch {
 	public final int DEFAULT_ROW_COLLUMN = 8;
 
-	private int turn = 1;
-	private Color currentPlayer = Color.WHITE;
+	private int turn;
+	private Color currentPlayer;
 	private Board board;
+
+	private List<Piece> piecesOnBoard;
+	private List<Piece> capturedPieces;
 
 	public ChessMatch() {
 		board = new Board(DEFAULT_ROW_COLLUMN, DEFAULT_ROW_COLLUMN);
+		this.turn = 1;
+		this.currentPlayer = Color.WHITE;
+		this.piecesOnBoard = new ArrayList<>();
+		this.capturedPieces = new ArrayList<>();
 		initialSetup();
 	}
 
 	public ChessMatch(int row, int collumn) {
 		board = new Board(row, collumn);
+		this.turn = 1;
+		this.currentPlayer = Color.WHITE;
+		this.piecesOnBoard = new ArrayList<>();
+		this.capturedPieces = new ArrayList<>();
 	}
 
 	public int getTurn() {
@@ -74,6 +88,10 @@ public class ChessMatch {
 	private Piece makeMove(Position source, Position target) {
 		Piece selectedPiece = board.removePiece(source);
 		Piece capturedPiece = board.removePiece(target);
+		if (capturedPiece != null) {
+			piecesOnBoard.remove(capturedPiece);
+			capturedPieces.add(capturedPiece);
+		}
 		board.placePiece(selectedPiece, target);
 		return capturedPiece;
 	}
@@ -84,7 +102,8 @@ public class ChessMatch {
 	}
 
 	private void placeNewPiece(char column, int row, ChessPiece piece) {
-		board.placePiece(piece, new ChessPosition(column, row, board.getRows(), board.getColumns()).toPosition());
+		this.board.placePiece(piece, new ChessPosition(column, row, board.getRows(), board.getColumns()).toPosition());
+		this.piecesOnBoard.add(piece);
 	}
 
 	private void initialSetup() {

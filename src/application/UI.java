@@ -1,10 +1,12 @@
 package application;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import chess.ChessMatch;
-//import java.io.PrintWriter; //Future plans
 import chess.ChessPiece;
 import chess.ChessPosition;
 import chess.Color;
@@ -50,12 +52,15 @@ public class UI {
 		}
 
 	}
-	
-	public static void printMatch(ChessMatch chessMatch) {
+
+	public static void printMatch(ChessMatch chessMatch,List<ChessPiece> captured) {
 		printBoard(chessMatch.getPieces());
 		System.out.println();
-		System.out.println("Turn : "+chessMatch.getTurn());
-		System.out.println("Player's turn : "+chessMatch.getCurrentPlayer());
+		printCapturedPieces(captured);
+		System.out.println();
+		System.out.println("Turn : " + chessMatch.getTurn());
+		System.out.print(chessMatch.getCurrentPlayer() ==Color.BLACK ? ANSI_PURPLE:ANSI_WHITE);
+		System.out.println("Player's turn : " + chessMatch.getCurrentPlayer()+ANSI_RESET);
 	}
 
 	public static void printBoard(ChessPiece[][] pieces) {
@@ -63,7 +68,7 @@ public class UI {
 			System.out.print(ANSI_WHITE_BACKGROUND + ANSI_BLACK + " " + (pieces.length - i) + " "
 					+ ANSI_BLACK_BACKGROUND + " " + ANSI_RESET);
 			for (int j = 0; j < pieces[0].length; j++)
-				printPiece(pieces[i][j],0);
+				printPiece(pieces[i][j], 0);
 			System.out.println();
 		}
 		System.out.print(ANSI_WHITE_BACKGROUND + "  ");
@@ -71,31 +76,31 @@ public class UI {
 			System.out.print(ANSI_BLACK + "  " + (char) (97 + i));
 		System.out.print(" " + ANSI_BLACK_BACKGROUND + ANSI_RESET);
 	}
-	
+
 	public static void printBoard(ChessPiece[][] pieces, int[][] possibleMoves) {
 		for (int i = 0; i < pieces.length; i++) {
 			System.out.print(ANSI_WHITE_BACKGROUND + ANSI_BLACK + " " + (pieces.length - i) + " "
 					+ ANSI_BLACK_BACKGROUND + " " + ANSI_RESET);
 			for (int j = 0; j < pieces[0].length; j++)
-				printPiece(pieces[i][j],possibleMoves[i][j]);
+				printPiece(pieces[i][j], possibleMoves[i][j]);
 			System.out.println();
 		}
 		System.out.print(ANSI_WHITE_BACKGROUND + "  ");
 		for (int i = 0; i < pieces[0].length; i++)
 			System.out.print(ANSI_BLACK + "  " + (char) (97 + i));
 		System.out.print(" " + ANSI_BLACK_BACKGROUND + ANSI_RESET);
-		
+
 	}
 
 	private static void printPiece(ChessPiece piece, int background) {
-		if (background == 1) 
+		if (background == 1)
 			System.out.print(ANSI_YELLOW_BACKGROUND);
-		
-		if (background == 2) 
+
+		if (background == 2)
 			System.out.print(ANSI_RED_BACKGROUND);
-		
+
 		if (piece == null)
-			System.out.print("-"+ ANSI_RESET);
+			System.out.print("-" + ANSI_RESET);
 		else {
 			if (piece.getColor() == Color.WHITE)
 				System.out.print(ANSI_WHITE + piece + ANSI_RESET);
@@ -103,6 +108,22 @@ public class UI {
 				System.out.print(ANSI_PURPLE + piece + ANSI_RESET);
 		}
 		System.out.print("  ");
+	}
+
+	private static void printCapturedPieces(List<ChessPiece> captured) {
+		List<ChessPiece> white = captured.stream().filter(x -> x.getColor() == Color.WHITE)
+				.collect(Collectors.toList());
+		List<ChessPiece> black = captured.stream().filter(x -> x.getColor() == Color.BLACK)
+				.collect(Collectors.toList());
+		System.out.println("Captured pieces:");
+		System.out.print("White(s): ");
+		System.out.print(ANSI_WHITE);
+		System.out.print(Arrays.toString(white.toArray()));
+		System.out.println(ANSI_RESET);
+		System.out.print(ANSI_PURPLE);
+		System.out.print("Black(s): ");
+		System.out.print(Arrays.toString(black.toArray()));
+		System.out.println(ANSI_RESET);
 	}
 
 }

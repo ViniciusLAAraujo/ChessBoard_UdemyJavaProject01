@@ -1,6 +1,8 @@
 package application;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import boardlayer.BoardException;
@@ -12,22 +14,22 @@ import chess.Color;
 
 public class Program {
 	public static void main(String[] args) {
-		UI.clearScreen();
 		Scanner sc = new Scanner(System.in);
 		ChessMatch chessMatch = new ChessMatch();
+		List<ChessPiece> captured = new ArrayList<>();
 		boolean exit = false;
 		while (!exit) {
 			try {
 				UI.clearScreen();
-				UI.printMatch(chessMatch);
+				UI.printMatch(chessMatch, captured);
 				System.out.println();
 				System.out.print("Source: ");
 				ChessPosition source = UI.readChessPosition(sc, chessMatch.DEFAULT_ROW_COLLUMN,
 						chessMatch.DEFAULT_ROW_COLLUMN);
-				
-				int [][] possibleMoves = chessMatch.possibleMoves(source);
+
+				int[][] possibleMoves = chessMatch.possibleMoves(source);
 				UI.clearScreen();
-				UI.printBoard(chessMatch.getPieces(),possibleMoves);
+				UI.printBoard(chessMatch.getPieces(), possibleMoves);
 
 				System.out.println();
 				System.out.print("Target: ");
@@ -39,6 +41,7 @@ public class Program {
 				if (capturedPiece == null)
 					System.out.println("No pieces were captured");
 				else {
+					captured.add(capturedPiece);
 					System.out.print("captured piece ");
 					if (capturedPiece.getColor() == Color.BLACK)
 						System.out.println(UI.ANSI_PURPLE + capturedPiece.toString() + UI.ANSI_RESET);

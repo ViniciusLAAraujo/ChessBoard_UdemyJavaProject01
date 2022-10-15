@@ -47,6 +47,15 @@ public class Program {
 					else
 						System.out.println(capturedPiece.toString());
 				}
+				if (chessMatch.getPromoted() != null) {
+					String type;
+					do {
+						System.out.print("Enter Piece promotion (Q/R/N/B): ");
+						type = sc.nextLine().toUpperCase();
+					} while (!type.equals("Q") && !type.equals("R") && !type.equals("N") && !type.equals("B"));
+					chessMatch.replacePromotedPiece(type);
+
+				}
 				sc.nextLine();
 			} catch (ChessException e) {
 				System.out.println(e.getMessage());

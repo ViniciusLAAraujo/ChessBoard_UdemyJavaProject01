@@ -85,10 +85,9 @@ public class ChessMatch {
 
 		check = (testCheck(opponent(currentPlayer))) ? true : false;
 
-		if (this.check==true&&testCheckMate(opponent(currentPlayer)))
+		if (this.check == true && testCheckMate(opponent(currentPlayer)))
 			this.checkMate = true;
-		
-		
+
 		nextTurn();
 		return (ChessPiece) capturedPiece;
 	}
@@ -109,7 +108,8 @@ public class ChessMatch {
 	}
 
 	private Piece makeMove(Position source, Position target) {
-		Piece selectedPiece = board.removePiece(source);
+		ChessPiece selectedPiece = (ChessPiece) board.removePiece(source);
+		selectedPiece.increaseMoveCount();
 		Piece capturedPiece = board.removePiece(target);
 		if (capturedPiece != null) {
 			piecesOnBoard.remove(capturedPiece);
@@ -120,7 +120,8 @@ public class ChessMatch {
 	}
 
 	private void undoMove(Position source, Position target, Piece capturedPiece) {
-		Piece selectedPiece = board.removePiece(target);
+		ChessPiece selectedPiece = (ChessPiece) board.removePiece(target);
+		selectedPiece.decreaseMoveCount();
 		board.placePiece(selectedPiece, source);
 
 		if (capturedPiece != null) {
@@ -187,10 +188,10 @@ public class ChessMatch {
 	}
 
 	private void initialSetup() {
-		placeNewPiece('b', 8, new Rook(this.board, Color.BLACK));
-		placeNewPiece('a', 8, new King(this.board, Color.BLACK));
+		placeNewPiece('a', 8, new Rook(this.board, Color.BLACK));
+		placeNewPiece('e', 8, new King(this.board, Color.BLACK));
 		placeNewPiece('h', 8, new Rook(this.board, Color.BLACK));
-		placeNewPiece('d', 1, new Rook(this.board, Color.WHITE));
+		placeNewPiece('a', 1, new Rook(this.board, Color.WHITE));
 		placeNewPiece('e', 1, new King(this.board, Color.WHITE));
 		placeNewPiece('h', 7, new Rook(this.board, Color.WHITE));
 	}

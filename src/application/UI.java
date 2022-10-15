@@ -59,10 +59,22 @@ public class UI {
 		printCapturedPieces(captured);
 		System.out.println();
 		System.out.println("Turn : " + chessMatch.getTurn());
-		System.out.print(chessMatch.getCurrentPlayer() ==Color.BLACK ? ANSI_PURPLE:ANSI_WHITE);
-		System.out.println("Player's turn : " + chessMatch.getCurrentPlayer()+ANSI_RESET);
-		if (chessMatch.isCheck())
-			System.out.println(ANSI_RED+"CHECK!"+ANSI_RESET);
+		if(!chessMatch.isCheckMate()) {
+			System.out.print(chessMatch.getCurrentPlayer() ==Color.BLACK ? ANSI_PURPLE:ANSI_WHITE);
+			System.out.println("Player's turn : " + chessMatch.getCurrentPlayer()+ANSI_RESET);
+			if (chessMatch.isCheck())
+				System.out.println(ANSI_RED+"CHECK!"+ANSI_RESET);
+		}
+		else {
+			System.out.println(ANSI_RED+"CHECKMATE!"+ANSI_RESET);
+			System.out.print(ANSI_GREEN+"Winner is ");
+			if (chessMatch.getCurrentPlayer()==Color.BLACK)
+				System.out.print(ANSI_PURPLE);
+			else 
+				System.out.print(ANSI_WHITE);
+			System.out.println(chessMatch.getCurrentPlayer()+ANSI_RESET);
+		}
+			
 	}
 
 	public static void printBoard(ChessPiece[][] pieces) {

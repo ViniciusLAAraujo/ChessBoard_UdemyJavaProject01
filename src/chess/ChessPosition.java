@@ -38,7 +38,7 @@ public class ChessPosition {
 	}
 
 	protected static ChessPosition fromPosition(Position position, int max_rows, int max_columns) {
-		return new ChessPosition((char) ('a' - position.getColumn()), max_rows - position.getRow(), max_rows,
+		return new ChessPosition((char) ('a' + position.getColumn()), max_rows - position.getRow(), max_rows,
 				max_columns);
 	}
 	

@@ -54,7 +54,7 @@ public class Knight extends ChessPiece {
 		if (getBoard().positionExists(pos) && canMove(pos))
 			matx[pos.getRow()][pos.getColumn()] = (!isThereOpponentPiece(pos)) ? 1 : 2;
 		// Left Up
-		pos.setValues(this.position.getRow() + 1, this.position.getColumn() - 2);
+		pos.setValues(this.position.getRow() - 1, this.position.getColumn() - 2);
 		if (getBoard().positionExists(pos) && canMove(pos))
 			matx[pos.getRow()][pos.getColumn()] = (!isThereOpponentPiece(pos)) ? 1 : 2;
 		return matx;
